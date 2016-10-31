@@ -48,21 +48,50 @@ var visitorsSchema = mongoose.Schema({
 
 var Visitors = mongoose.model("Visitors", visitorsSchema);
 
-function createVisitor(arr) {
-    for (var i = 0; i < arr.length; i++) {
-        var visitor = new Visitors(arr[i]);
-        console.log("New visitor: ", visitor);
-        visitor.save();
-    }
+// function createVisitor(arr) {
+//     for (var i = 0; i < arr.length; i++) {
+//         var visitor = new Visitors(arr[i]);
+//         console.log("New visitor: ", visitor);
+//         visitor.save();
+//     }
+// }
+//
+// function createAnimals(arr) {
+//     for (var i = 0; i <= arr.length; i++) {
+//         var animal = new Animals(arr[i]);
+//         console.log("New animal: ", animal);
+//         animal.save();
+//     }
+// }
+//
+// createVisitor(newVisitors);
+// createAnimals(newAnimals);
+
+
+function getAnimals(query) {
+    Animals.find(query || {}, (err, animal) => {
+        if (err) {
+            console.log("Error: ", err);
+        } else {
+            console.log("People: ", animal);
+        }
+    });
 }
 
-function createAnimals(arr) {
-    for (var i = 0; i <= arr.length; i++) {
-        var animal = new Animals(arr[i]);
-        console.log("New animal: ", animal);
-        animal.save();
-    }
+function getVisitors(query) {
+    Visitors.find(query || {}, (err, visitor) => {
+        if (err) {
+            console.log("Error: ", err);
+        } else {
+            console.log("People: ", visitor);
+        }
+    });
 }
 
-createVisitor(newVisitors);
-createAnimals(newAnimals);
+getAnimals({
+    diet: "People"
+});
+
+getVisitors({
+    favoriteAnimals: "Jackalope"
+})
